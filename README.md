@@ -41,8 +41,8 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 ## Video Walkthrough
 
-![Video Walkthrough]( /gif/Mar 20%2C 2016 22:12.gif)
-![Video Walkthrough](/gif/Mar 20%2C 2016 22:16.gif)
+![Video Walkthrough](/blob/master/Yelp/gif/Mar 20%2C 2016 22:12.gif)
+![Video Walkthrough](/blob/master/Yelp/gif/Mar 20%2C 2016 22:16.gif)
 
 ## Notes
 
