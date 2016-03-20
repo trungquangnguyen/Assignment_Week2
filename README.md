@@ -41,7 +41,7 @@ Please list two areas of the assignment you'd like to **discuss further with you
 
 ## Video Walkthrough
 
-![Video Walkthrough](/blob/master/Yelp/gif/Mar 20%2C 2016 22:12.gif)
+![Video Walkthrough](https://github.com/trungquangnguyen/Assignment_Week2/blob/master/Yelp/gif/Mar%2020%2C%202016%2022:12.gif)
 ![Video Walkthrough](/blob/master/Yelp/gif/Mar 20%2C 2016 22:16.gif)
 
 ## Notes
