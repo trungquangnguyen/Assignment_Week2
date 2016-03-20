@@ -183,10 +183,11 @@ extension FilterViewController : UITableViewDelegate, UITableViewDataSource{
                         seeAllButton.addTarget(self, action: "reloadCategory", forControlEvents: UIControlEvents.TouchUpInside)
                         
                         if arrCategory?.count == 3 {
-                            seeAllLabel?.text = "Hide"
+                            seeAllLabel?.text = "See All"
                             seeAllLabel?.sizeToFit()
                         }else{
-                            seeAllLabel?.text = "See All"
+                            
+                            seeAllLabel?.text = "Hide"
                             seeAllLabel?.sizeToFit()
                         }
                         

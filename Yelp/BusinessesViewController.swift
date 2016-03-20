@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MBProgressHUD
 
 class BusinessesViewController: UIViewController {
 // MARK: - Property
@@ -43,10 +44,20 @@ class BusinessesViewController: UIViewController {
 //            self.tbvBusiness.reloadData()
 //        })
 
+        MBProgressHUD.showHUDAddedTo(tbvBusiness, animated: true)
         Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
-            self.businesses = businesses
-             self.tbvBusiness.reloadData()
-        }        
+            if (error != nil) {
+                self.notifyError(error)
+            }else{
+                if businesses != nil {
+                    self.businesses = businesses
+                    self.tbvBusiness.reloadData()
+                }else{
+                    self.notifyError(NSError(domain: "sds", code: 102, userInfo: nil))
+                }
+            }
+            MBProgressHUD.hideHUDForView(self.tbvBusiness, animated: true)
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,6 +65,35 @@ class BusinessesViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 // MARK: - Private Method
+    func notifyError(error: NSError){
+        let label = UILabel()
+        if (error.code == -1009){
+            label.text = "Network Error !"
+        }else{
+            label.text = "This Filter No reseult!"
+        }
+        label.textColor = UIColor.whiteColor()
+        label.sizeToFit()
+        
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: 200, height: 100))
+        label.center = view.center
+        view.addSubview(label)
+        view.center = tbvBusiness.center
+        view.clipsToBounds = true
+        view.backgroundColor = UIColor.redColor()
+        view.layer.cornerRadius = 20
+        view.layer.borderWidth = 1;
+        tbvBusiness .addSubview(view)
+        view.alpha = 0
+        UIView.animateKeyframesWithDuration(1, delay: 0.5, options: UIViewKeyframeAnimationOptions.CalculationModeLinear, animations: { () -> Void in
+            view.alpha = 1
+            }) { (bool: Bool) -> Void in
+                UIView.animateWithDuration(2, animations: { () -> Void in
+                    view.alpha = 0
+                })
+        }
+    }
+    
     func customBarbutton() {
         let useButton = UIButton(type: UIButtonType.Custom)
         useButton.setTitle("Filter", forState: UIControlState.Normal)
@@ -119,10 +159,16 @@ extension BusinessesViewController: UITableViewDelegate, UITableViewDataSource{
 //MARK: - ExtensionFilter Delegate
 extension BusinessesViewController: FilterDelegate{
     func filterViewController(offeringModel:OfferingModel, distanceModel: DistanceModel, sortby: SortByModel, categorys: [String: AnyObject]){
+        MBProgressHUD.showHUDAddedTo(tbvBusiness, animated: true)
         let categories = categorys["categories"] as? [String]
         Business.searchWithTerm("Restaurants", sort: sortby.mode, categories: categories, deals: offeringModel.onSwitch) { (businesses: [Business]!, error: NSError!) -> Void in
-            self.businesses = businesses
-            self.tbvBusiness.reloadData()
+            if businesses != nil {
+                self.businesses = businesses
+                self.tbvBusiness.reloadData()
+            }else{
+                self.notifyError(NSError(domain: "sds", code: 102, userInfo: nil))
+            }
         }
+         MBProgressHUD.hideHUDForView(self.tbvBusiness, animated: true)
     }
 }
