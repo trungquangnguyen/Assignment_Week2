@@ -45,7 +45,7 @@ class BusinessesViewController: UIViewController {
 //        })
 
         MBProgressHUD.showHUDAddedTo(tbvBusiness, animated: true)
-        Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: true) { (businesses: [Business]!, error: NSError!) -> Void in
+        Business.searchWithTerm("Restaurants", sort: .Distance, categories: ["asianfusion", "burgers"], deals: false) { (businesses: [Business]!, error: NSError!) -> Void in
             if (error != nil) {
                 self.notifyError(error)
             }else{
