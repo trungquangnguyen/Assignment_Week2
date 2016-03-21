@@ -80,9 +80,8 @@ class BusinessesViewController: UIViewController {
         view.addSubview(label)
         view.center = tbvBusiness.center
         view.clipsToBounds = true
-        view.backgroundColor = UIColor.redColor()
+        view.backgroundColor = UIColor(hue: 50.0/255, saturation: 50.0/255, brightness: 50.0/255, alpha: 0.5)
         view.layer.cornerRadius = 20
-        view.layer.borderWidth = 1;
         tbvBusiness .addSubview(view)
         view.alpha = 0
         UIView.animateKeyframesWithDuration(1, delay: 0.5, options: UIViewKeyframeAnimationOptions.CalculationModeLinear, animations: { () -> Void in
