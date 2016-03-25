@@ -36,6 +36,7 @@ class BusinessesViewController: UIViewController {
         
         searchBar = UISearchBar()
         searchBar.backgroundColor = UIColor.clearColor()
+        searchBar.delegate = self;
         self.navigationItem.titleView = searchBar
         searchBar.placeholder = "Restaurants"
         
@@ -118,7 +119,28 @@ class BusinessesViewController: UIViewController {
     }
 
     
+//    func searchBarSearchButtonClicked(searchBar: UISearchBar){
+//        print("\(searchBar.text)");
+//    }
+}
+// MARK: -EXtensionSearchBar
+extension BusinessesViewController : UISearchBarDelegate {
+    func searchBarSearchButtonClicked(searchBar: UISearchBar){
+        let string = searchBar.text
+        if let a = string {
+            MBProgressHUD.showHUDAddedTo(tbvBusiness, animated: true)
+                    Business.searchWithTerm(a, completion: { (businesses: [Business]!, error: NSError!) -> Void in
+                            self.businesses = businesses
+                        self.tbvBusiness.reloadData()
+                        if self.businesses.count > 0 {
+                        }else{
+                            self.notifyError(NSError(domain: "sds", code: 102, userInfo: nil))
+                        }
+                        MBProgressHUD.hideHUDForView(self.tbvBusiness, animated: true)
+                    })
 
+        }
+    }
 }
 
 //MARK: - ExtensionTableView
